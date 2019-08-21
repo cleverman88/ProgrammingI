@@ -10,7 +10,7 @@ class House(private var electricMeter : Meter,private var waterMeter : Meter) {
      * Adds an appliance to the list and assigns it to the electrical meter
      * @param appliance The appliance you wish to add
      */
-    fun addElectricalAppliance(appliance : Appliance){
+    infix fun addElectricalAppliance(appliance : Appliance){
         appliance.setMeter(electricMeter)
         applianceList.add(appliance)
     }
@@ -19,7 +19,7 @@ class House(private var electricMeter : Meter,private var waterMeter : Meter) {
      * Adds an appliance to the list and assigns it to the water meter
      * @param appliance The appliance you wish to add
      */
-    fun addWaterAppliance(appliance : Appliance){
+    infix fun addWaterAppliance(appliance : Appliance){
         appliance.setMeter(waterMeter)
         applianceList.add(appliance)
     }
@@ -28,7 +28,7 @@ class House(private var electricMeter : Meter,private var waterMeter : Meter) {
      * Removes an appliance from the list
      * @param appliance The appliance you wish to remove
      */
-    fun removeAppliance(appliance : Appliance){
+    infix fun removeAppliance(appliance : Appliance){
         applianceList.remove(appliance)
     }
 

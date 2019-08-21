@@ -22,8 +22,11 @@ class Meter(private var utilityName: String, private var unitCost: Double, priva
         val cost = meterReading*unitCost
         println("------METER READING------")
         println("Name: $utilityName")
-        println("Meter Reading: $meterReading")
-        println("Cost: $cost")
+        if(meterReading < 0) println("Meter Reading: 0.0")
+        else println("Meter Reading: $meterReading")
+
+        if(cost < 0) println("Cost: 0")
+        else println("Cost: $cost")
         meterReading = 0F
 
         return cost
@@ -31,19 +34,14 @@ class Meter(private var utilityName: String, private var unitCost: Double, priva
 }
 
 fun main() {
-    var meter = Meter("Sohaib", 10.0,0F)
+    val Emeter = Meter("Electric", 10.0,0F)
+    val Wmeter = Meter("Water", 10.0,0F)
+    val house = House(Emeter, Wmeter)
+    house.addElectricalAppliance(CyclicFixed("Fridge",-10,24))
+    house.addWaterAppliance(CyclicFixed("Shower", 15, 1))
 
-    meter.report()
-    meter.consumeUnits(10)
-    meter.report()
-
-    var appliance: Appliance = CyclicFixed("Fridge", 10, 25)
-    appliance.setMeter(meter)
-
-    appliance.timePasses()
-    appliance.timePasses()
-
-    meter.report()
+    val cost = house.activate()
+    println(cost)
 
 
 }
