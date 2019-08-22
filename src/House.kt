@@ -3,7 +3,15 @@
  * @param electricMeter Represents the electric meter of the house
  * @param waterMeter Represents the water meter od the house
  */
-class House(private var electricMeter : Meter,private var waterMeter : Meter) {
+class House() {
+
+    private var electricMeter : Meter = Meter("Electric meter", 0.013,0F)
+    private var waterMeter : Meter = Meter("Water meter", 0.002, 0F)
+
+    constructor(electricMeter : BatteryMeter, waterMeter : Meter) : this(){
+        this.electricMeter = electricMeter
+        this.waterMeter = waterMeter
+    }
     private var applianceList = ArrayList<Appliance>()
 
     /**
@@ -52,5 +60,21 @@ class House(private var electricMeter : Meter,private var waterMeter : Meter) {
         cost += electricMeter.report()
         cost += waterMeter.report()
         return cost
+    }
+
+    fun activate(noHours: Int) : Double {
+
+        var cost = 0.0;
+        for(i in 0..noHours) {
+            println("=========================== HOUR $i ===========================")
+            for (app in applianceList) {
+                app.timePasses()
+            }
+            cost += electricMeter.report()
+            cost += waterMeter.report()
+        }
+        println("Final cost: $cost")
+        return cost
+
     }
 }

@@ -4,7 +4,7 @@
  * @param unitCost Cost of consumption
  * @param meterReading Reading of the meter
  */
-class Meter(private var utilityName: String, private var unitCost: Double, private var meterReading: Float) {
+open class Meter(protected var utilityName: String, protected var unitCost: Double, protected var meterReading: Float) {
 
     /**
      * Method to add to the meter reading
@@ -18,15 +18,14 @@ class Meter(private var utilityName: String, private var unitCost: Double, priva
      * Method which prints out the information of that meter
      * @return The cost of that report
      */
-    fun report() : Double{
-        val cost = meterReading*unitCost
+    open fun report() : Double{
         println("------METER READING------")
         println("Name: $utilityName")
-        if(meterReading < 0) println("Meter Reading: 0.0")
-        else println("Meter Reading: $meterReading")
+        if(meterReading < 0) meterReading = 0F
+        println("Meter Reading: $meterReading")
 
-        if(cost < 0) println("Cost: 0")
-        else println("Cost: $cost")
+        var cost = meterReading*unitCost
+        println("Cost: $cost")
         meterReading = 0F
 
         return cost
@@ -34,14 +33,18 @@ class Meter(private var utilityName: String, private var unitCost: Double, priva
 }
 
 fun main() {
-    val Emeter = Meter("Electric", 10.0,0F)
+    val Emeter = BatteryMeter("Electric", 10.0,0F)
     val Wmeter = Meter("Water", 10.0,0F)
     val house = House(Emeter, Wmeter)
-    house.addElectricalAppliance(CyclicFixed("Fridge",-10,24))
+    //val house = House()
+    val appliance = CyclicVaries("Fridge",-5,-20,24)
+    val appliance2 = CyclicFixed("Fridge",15,24)
+
+    house.addElectricalAppliance(appliance)
+    house.addElectricalAppliance(appliance2)
+
     house.addWaterAppliance(CyclicFixed("Shower", 15, 1))
 
-    val cost = house.activate()
-    println(cost)
-
+    house.activate(10)
 
 }
