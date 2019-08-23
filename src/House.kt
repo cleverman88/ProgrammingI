@@ -90,6 +90,8 @@ fun main(args: Array<String>) {
     val Wmeter = Meter("Water", 0.002,0F)
     val house = House(Emeter, Wmeter)
     //val house = House()
+    var args= ArrayList<String>(1)
+    args.add("config.txt")
     if(args.isNotEmpty()){
         val p = FileParser(args[0],house)
         if(args.size > 1){

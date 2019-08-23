@@ -2,7 +2,7 @@
  * Abstract class which indicates core properties of Appliances
  * @param superName Name of the appliance
  */
-abstract class Appliance(var superName: String) {
+abstract class Appliance(private var superName: String) {
     var m: Meter? = null
 
     /**
@@ -23,6 +23,10 @@ abstract class Appliance(var superName: String) {
      * @param units The amount of units that the appliance has consumed
      */
     protected fun tellMeterToConsumeUnits(units: Float){
-        m?.consumeUnits(units)
+
+        try {m?.consumeUnits(units)}
+        catch (e : NullPointerException){
+            throw NullPointerException("No meter has been set for appliance: $superName")
+        }
     }
 }
