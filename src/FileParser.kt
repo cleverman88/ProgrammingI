@@ -69,7 +69,7 @@ class FileParser(private val fileName : String, private val house : House) {
     }
 
     /**
-     * Error correction on format of the file
+     * Error checking on the format of the file
      * @param v The string being checked
      */
     private fun valid(v : String?) : String{
