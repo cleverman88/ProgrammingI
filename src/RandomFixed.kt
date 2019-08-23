@@ -5,7 +5,7 @@ import kotlin.random.Random
  * @param unitsConsumed The amount of units the appliance consumes per hour
  * @param probability The probability that the appliance will switch on
  */
-class RandomFixed(name : String, var unitsConsumed: Int, var probability :Int) :Appliance(name){
+class RandomFixed(name : String, var unitsConsumed: Float, var probability :Int) :Appliance(name){
 
 
     /**

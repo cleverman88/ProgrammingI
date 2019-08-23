@@ -25,7 +25,7 @@ class CyclicVaries(var name : String, var min : Int, var max: Int, var timeOn: I
         val minimum = min(min, max)
         val maximum = max(min, max)
         var unitsConsumed = Random.nextInt(minimum,maximum)
-        if(time <= timeOn) tellMeterToConsumeUnits(unitsConsumed)
+        if(time <= timeOn) tellMeterToConsumeUnits(unitsConsumed.toFloat())
 
         time %= 24
 

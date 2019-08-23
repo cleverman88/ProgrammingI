@@ -4,7 +4,7 @@
  * @param unitsConsumed The amount of units the appliance consumes per hour
  * @param timeOn The amount of time that the appliance is on a day
  */
-class CyclicFixed(var name: String, var unitsConsumed: Int, var timeOn: Int) : Appliance(name) {
+class CyclicFixed(var name: String, var unitsConsumed: Float, var timeOn: Int) : Appliance(name) {
     var time : Int
 
     //Initialises time and checks that the timeOn is not out of range

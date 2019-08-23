@@ -22,7 +22,7 @@ abstract class Appliance(var superName: String) {
      * Method which communicates information between the appliance and the meter
      * @param units The amount of units that the appliance has consumed
      */
-    protected fun tellMeterToConsumeUnits(units : Int){
+    protected fun tellMeterToConsumeUnits(units: Float){
         m?.consumeUnits(units)
     }
 }

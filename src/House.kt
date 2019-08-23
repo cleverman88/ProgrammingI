@@ -62,6 +62,11 @@ class House() {
         return cost
     }
 
+    /**
+     *  Method which simulates one noHours passing with all the appliances
+     *  @param noHours The amount of hours you wish the simulation to run for
+     *  @return The cost of both meters in that noHours hour
+     */
     fun activate(noHours: Int) : Double {
 
         var cost = 0.0;
@@ -77,4 +82,21 @@ class House() {
         return cost
 
     }
+
+}
+
+fun main(args: Array<String>) {
+    val Emeter = BatteryMeter("Electric", 0.013,0F)
+    val Wmeter = Meter("Water", 0.002,0F)
+    val house = House(Emeter, Wmeter)
+    //val house = House()
+    if(args.isNotEmpty()){
+        val p = FileParser(args[0],house)
+        if(args.size > 1){
+            house.activate(Integer.parseInt(args[1]))
+            return
+        }
+    }
+    house.activate(168)
+    println(house.numAppliance())
 }

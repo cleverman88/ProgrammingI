@@ -10,7 +10,7 @@ open class Meter(protected var utilityName: String, protected var unitCost: Doub
      * Method to add to the meter reading
      * @param noUnits Number of units consumed
      */
-    fun consumeUnits(noUnits : Int){
+    fun consumeUnits(noUnits: Float){
         meterReading += noUnits
     }
 
@@ -30,21 +30,4 @@ open class Meter(protected var utilityName: String, protected var unitCost: Doub
 
         return cost
     }
-}
-
-fun main() {
-    val Emeter = BatteryMeter("Electric", 10.0,0F)
-    val Wmeter = Meter("Water", 10.0,0F)
-    val house = House(Emeter, Wmeter)
-    //val house = House()
-    val appliance = CyclicVaries("Fridge",-5,-20,24)
-    val appliance2 = CyclicFixed("Fridge",15,24)
-
-    house.addElectricalAppliance(appliance)
-    house.addElectricalAppliance(appliance2)
-
-    house.addWaterAppliance(CyclicFixed("Shower", 15, 1))
-
-    house.activate(10)
-
 }

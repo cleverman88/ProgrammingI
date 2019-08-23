@@ -1,3 +1,5 @@
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 /**
  * RandomVaries appliance that inherits from the Abstract appliance class
@@ -12,8 +14,10 @@ class RandomVaries(var name : String, var min: Int, var max: Int, var probabilit
      * Function to simulate time passing on an appliance
      */
     override fun timePasses() {
-        var unitsConsumed = Random.nextInt(min,max)
-        if(Random.nextInt(0,probability) == 1) tellMeterToConsumeUnits(unitsConsumed)
+        val minimum = min(min, max)
+        val maximum = max(min, max)
+        var unitsConsumed = Random.nextInt(minimum,maximum)
+        if(Random.nextInt(0,probability) == 1) tellMeterToConsumeUnits(unitsConsumed.toFloat())
     }
 
 }
