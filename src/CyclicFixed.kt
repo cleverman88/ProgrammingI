@@ -22,4 +22,15 @@ class CyclicFixed(var name: String, var unitsConsumed: Float, var timeOn: Int) :
 
         time %= 24
     }
+
+    override fun toString(): String {
+        return "name: $name\n" +
+                "subclass: CyclicFixed\n" +
+                "meter: "+ (this.m?.utilityName ?: String) +"\n" +
+                "Min units consumed:\n" +
+                "Max units consumed:\n" +
+                "Fixed units consumed: $unitsConsumed\n" +
+                "Probability switched on:\n" +
+                "Cycle length: $timeOn/24"
+    }
 }

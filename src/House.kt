@@ -1,10 +1,12 @@
+import java.io.File
+import java.io.IOException
+
 /**
  * House class which will maintain information on appliances and meters
  * @param electricMeter Represents the electric meter of the house
  * @param waterMeter Represents the water meter od the house
  */
 class House() {
-
     private var electricMeter : Meter = Meter("Electric meter", 0.013,0F)
     private var waterMeter : Meter = Meter("Water meter", 0.002, 0F)
 
@@ -21,6 +23,10 @@ class House() {
     infix fun addElectricalAppliance(appliance : Appliance){
         appliance.setMeter(electricMeter)
         applianceList.add(appliance)
+    }
+
+    fun getApplianceList() : List<Appliance>{
+        return applianceList
     }
 
     /**
@@ -92,13 +98,29 @@ fun main(args: Array<String>) {
     //val house = House()
     var args= ArrayList<String>(1)
     args.add("config.txt")
-    if(args.isNotEmpty()){
-        val p = FileParser(args[0],house)
-        if(args.size > 1){
-            house.activate(Integer.parseInt(args[1]))
-            return
+    val p = FileParser()
+    println("Would you like to load the instance of the previous house (y/n)")
+    val input = readLine()
+
+    if(input == "y"){
+        try{p.readFile(house,"previousHouse.txt")}
+        catch (e : Exception){throw IOException("No previous save located")}
+    }
+    else {
+        if (args.isNotEmpty()) {
+            p.readFile(house, args[0])
+            if (args.size > 1) {
+                var cost = house.activate(Integer.parseInt(args[1]))
+                println("Would you like to save the instance of this house (y/n)")
+                val input = readLine()
+                if(input == "y") p.save(house,cost,Integer.parseInt(args[1]))
+                return
+            }
         }
     }
-    house.activate(168)
+    var cost = house.activate(168)
     println(house.numAppliance())
+    println("Would you like to save the instance of this house (y/n)")
+    val input2 = readLine()
+    if(input2 == "y") p.save(house,cost,168)
 }

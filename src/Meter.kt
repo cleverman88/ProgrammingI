@@ -4,7 +4,7 @@
  * @param unitCost Cost of consumption
  * @param meterReading Reading of the meter
  */
-open class Meter(protected var utilityName: String, protected var unitCost: Double, protected var meterReading: Float) {
+open class Meter(var utilityName: String, protected var unitCost: Double, protected var meterReading: Float) {
 
     /**
      * Method to add to the meter reading

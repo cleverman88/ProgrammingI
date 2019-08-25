@@ -4,21 +4,20 @@ import kotlin.collections.HashMap
 
 /**
  * Class that deals with file I/O
- * @param fileName Name of file you wish to read
- * @param house The instance of the house you wish to add the results to
  */
-class FileParser(private val fileName : String, private val house : House) {
+class FileParser() {
     var line :Int = 1
-
-    init{
-        readFile()
-    }
-
+    //Helper method
     private fun getInformation(str : String) : String{
         return str.split(":")[1].replace(" ", "")
     }
 
-    private fun readFile(){
+    /**
+     * Reads the input file given it follows format
+     * @param house The house which you wish to add the information to
+     * @param fileName The file name which you will be reading from
+     */
+    fun readFile(house : House, fileName : String){
         val map = HashMap<String,String>()
         var reset = false
         File(fileName).forEachLine{
@@ -37,7 +36,7 @@ class FileParser(private val fileName : String, private val house : House) {
                 "Probability" -> map["probability"] = if(getInformation(it).length > 1) getInformation(it).split("in")[1] else getInformation(it)
                 "Cycle" -> {
                     map["timeOn"] = getInformation(it).split("/")[0]
-                    addAppliance(map)
+                    addAppliance(map,house)
                     val map = HashMap<String,String>()
                     line += 8
                     reset = false
@@ -45,9 +44,9 @@ class FileParser(private val fileName : String, private val house : House) {
             }
         }
     }
-
-    private fun addAppliance(map : HashMap<String,String>){
-        //Checks what the mapping is and
+    //Helper function to parse the information
+    private fun addAppliance(map : HashMap<String,String>,house : House){
+        //Checks what the mapping is and adds it to the appropriate appliance
         when{
             map["subclass"] == "CyclicFixed" ->{
                 if(map["meter"] == "electric") house addElectricalAppliance CyclicFixed(valid(map["name"]!!), (valid(map["unitsConsumed"]))?.toFloat()!!,Integer.parseInt(valid(map["timeOn"])))
@@ -76,5 +75,28 @@ class FileParser(private val fileName : String, private val house : House) {
         println(v)
         if(v == null)  throw Exception("The config file is not in the correct format:\n Error on located on lines after $line and before line "+(line+8))
         else return v
+    }
+
+    /**
+     * Saves the unformation of the house to a file
+     * @param house The house you wish to save
+     * @param cost The current cost of the house
+     * @param hours The current hours that have passed in this house
+     */
+    fun save(house : House, cost : Double, hours : Int){
+        val myFile = File("previousHouse.txt")
+        myFile.createNewFile()
+        myFile.printWriter().use { out ->
+            out.println("Hours: $hours.")
+            out.println("Cost: $cost.")
+            for(appliance in house.getApplianceList()){
+                when(appliance.javaClass.name){
+                    "CyclicFixed" -> out.println(appliance.toString())
+                    "CyclicVaries" -> out.println(appliance.toString())
+                    "RandomFixed" -> out.println(appliance.toString())
+                    "RandomVaries" -> out.println(appliance.toString())
+                }
+            }
+        }
     }
 }

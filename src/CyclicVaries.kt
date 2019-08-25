@@ -31,5 +31,16 @@ class CyclicVaries(var name : String, var min : Int, var max: Int, var timeOn: I
 
     }
 
+    override fun toString(): String {
+        return "name: $name\n" +
+                "subclass: CyclicVaries\n" +
+                "meter: "+(this.m?.utilityName)+"\n" +
+                "Min units consumed: $min\n" +
+                "Max units consumed: $max\n" +
+                "Fixed units consumed: \n" +
+                "Probability switched on:\n" +
+                "Cycle length: $timeOn/24"
+    }
+
 
 }

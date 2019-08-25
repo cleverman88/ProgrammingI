@@ -20,4 +20,15 @@ class RandomVaries(var name : String, var min: Int, var max: Int, var probabilit
         if(Random.nextInt(0,probability) == 1) tellMeterToConsumeUnits(unitsConsumed.toFloat())
     }
 
+    override fun toString(): String {
+        return "name: $name\n" +
+                "subclass: RandomVaries\n" +
+                "meter: "+ (this.m?.utilityName ?: String) +"\n" +
+                "Min units consumed: $min\n" +
+                "Max units consumed: $max\n" +
+                "Fixed units consumed: \n" +
+                "Probability switched on: 1 in $probability\n" +
+                "Cycle length: "
+    }
+
 }
