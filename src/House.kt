@@ -7,6 +7,8 @@ import java.io.IOException
  * @param waterMeter Represents the water meter od the house
  */
 class House() {
+    var hours = 0
+    var cost = 0.0
     private var electricMeter : Meter = Meter("Electric meter", 0.013,0F)
     private var waterMeter : Meter = Meter("Water meter", 0.002, 0F)
 
@@ -59,7 +61,6 @@ class House() {
      *  @return The cost of both meters in that one hour
      */
     fun activate() : Double{
-        var cost = 0.0;
         for(app in applianceList){
             app.timePasses()
         }
@@ -75,8 +76,7 @@ class House() {
      */
     fun activate(noHours: Int) : Double {
 
-        var cost = 0.0;
-        for(i in 0..noHours) {
+        for(i in hours..noHours) {
             println("=========================== HOUR $i ===========================")
             for (app in applianceList) {
                 app.timePasses()
@@ -104,7 +104,8 @@ fun main(args: Array<String>) {
 
     if(input == "y"){
         try{p.readFile(house,"previousHouse.txt")}
-        catch (e : Exception){throw IOException("No previous save located")}
+        catch (e : IOException){throw IOException("No previous save located")}
+        house.activate(168)
     }
     else {
         if (args.isNotEmpty()) {

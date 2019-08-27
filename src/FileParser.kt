@@ -28,6 +28,8 @@ class FileParser() {
                     reset = true
                     map["name"] = getInformation(it)
                 }
+                "Hours" -> house.hours = Integer.parseInt(getInformation(it))
+                "Cost" -> house.cost = (getInformation(it)).toDouble()
                 "subclass" -> map["subclass"] = getInformation(it)
                 "meter" -> map["meter"] = getInformation(it)
                 "Min" -> map["min"] = getInformation(it)
@@ -87,8 +89,8 @@ class FileParser() {
         val myFile = File("previousHouse.txt")
         myFile.createNewFile()
         myFile.printWriter().use { out ->
-            out.println("Hours: $hours.")
-            out.println("Cost: $cost.")
+            out.println("Hours: $hours")
+            out.println("Cost: $cost")
             for(appliance in house.getApplianceList()){
                 when(appliance.javaClass.name){
                     "CyclicFixed" -> out.println(appliance.toString())

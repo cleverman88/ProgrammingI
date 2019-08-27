@@ -1,5 +1,5 @@
-Hours: 168.
-Cost: 3.038400052070615.
+Hours: 168
+Cost: 2.298200032234192
 name: Lights
 subclass: CyclicFixed
 meter: Electric
